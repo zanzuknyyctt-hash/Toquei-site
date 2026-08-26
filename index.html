@@ -320,6 +320,15 @@ section{padding:64px 0;}
 .produto-shot .ps-acao{font-size:.82rem; font-weight:500; color:var(--marca); white-space:nowrap;}
 .produto-legenda{text-align:center; margin-top:14px; font-size:.85rem; color:var(--texto-2);}
 
+/* ============ como você começa (Bloco 1.3) ============ */
+.comeca-passos{display:flex; flex-direction:column; gap:28px;}
+@media (min-width:700px){ .comeca-passos{flex-direction:row;} }
+.comeca-passo{display:flex; gap:14px; flex:1;}
+.comeca-num{flex:none; width:32px; height:32px; border-radius:50%; background:var(--marca-suave); color:var(--marca); font-size:.9rem; font-weight:500; display:flex; align-items:center; justify-content:center;}
+.comeca-h{font-size:1rem; font-weight:500; color:var(--texto); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.comeca-d{margin-top:6px; font-size:.9rem; color:var(--texto-2); line-height:1.55;}
+.comeca-tag{font-size:.7rem; font-weight:500; color:var(--aviso); background:var(--aviso-fundo); border-radius:5px; padding:2px 7px;}
+
 /* ============ FAQ (Bloco 7) ============ */
 .faq-lista{display:flex; flex-direction:column; gap:0; border-top:1px solid var(--borda);}
 .faq-lista details{border-bottom:1px solid var(--borda); padding:16px 0;}
@@ -402,7 +411,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         <p class="hero-sub sobe s2">O Toquei lembra quem esqueceu, na hora certa, sem você precisar cobrar ninguém.</p>
         <div class="hero-acts sobe s3">
           <a class="btn btn-primary" href="#comecar">Começar grátis</a>
-          <p class="hero-preco">a partir de R$ 97/mês · sem fidelidade · sem cartão de crédito</p>
+          <p class="hero-preco">Teste grátis por 14 dias. Depois, R$ 97/mês. Cancele quando quiser.</p>
         </div>
       </div>
 
@@ -468,7 +477,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
       <div class="toques-copy">
         <div class="sec-head" style="margin-bottom:0;"><h2 id="toques-h">O toque, não a cobrança</h2></div>
         <p>O Toquei dá um toque no cliente antes e depois do vencimento — nunca só depois.</p>
-        <p>Toque é o que uma pessoa ocupada manda pra outra: um lembrete direto, sem cara de boletim de devedor. Você aprova o texto antes de sair, vê quando o cliente visualizou, e o próximo toque já fica agendado sozinho.</p>
+        <p>Toque é o que uma pessoa ocupada manda pra outra: um lembrete direto, sem cara de boletim de devedor. Você aprova os modelos uma vez. Depois, os toques saem sozinhos conforme a regra que você escolheu — e você pode revisar antes de qualquer envio.</p>
       </div>
       <div class="timeline">
         <p class="tl-title">Fatura #12 — Padaria Doce Trigo</p>
@@ -604,6 +613,35 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     </div>
   </section>
 
+  <section aria-labelledby="comeca-h" class="comeca">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="comeca-h">Como você começa</h2></div>
+      <div class="comeca-passos">
+        <div class="comeca-passo">
+          <span class="comeca-num">1</span>
+          <div>
+            <p class="comeca-h">Traga suas faturas <span class="comeca-tag">em breve</span></p>
+            <p class="comeca-d">Importe uma planilha ou conecte seu emissor. Leva minutos, não dias.</p>
+          </div>
+        </div>
+        <div class="comeca-passo">
+          <span class="comeca-num">2</span>
+          <div>
+            <p class="comeca-h">Escolha a sequência de toques</p>
+            <p class="comeca-d">Quando avisar, por qual canal, com qual texto. Uma vez só.</p>
+          </div>
+        </div>
+        <div class="comeca-passo">
+          <span class="comeca-num">3</span>
+          <div>
+            <p class="comeca-h">Acompanhe</p>
+            <p class="comeca-d">O Toquei avisa quem precisa de atenção e registra quem pagou.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section aria-labelledby="faq-h" id="faq">
     <div class="wrap">
       <div class="sec-head"><h2 id="faq-h">Perguntas frequentes</h2></div>
@@ -622,7 +660,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         </details>
         <details>
           <summary>Meu cliente vai achar que estou cobrando de forma agressiva?</summary>
-          <p>Não é esse o objetivo. As mensagens são lembretes diretos, não boletins de devedor, e você aprova o texto antes de qualquer toque sair.</p>
+          <p>Não é esse o objetivo. As mensagens são lembretes diretos, não boletins de devedor. Você aprova os modelos uma vez. Depois, os toques saem sozinhos conforme a regra que você escolheu — e você pode revisar antes de qualquer envio.</p>
         </details>
         <details>
           <summary>E se ele responder? Quem responde?</summary>
@@ -645,6 +683,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
       <div class="sec-head"><h2 id="preco-h">Preço</h2></div>
       <div class="preco-card">
         <div class="preco-valor tabular">R$ 97<span class="p">/mês</span></div>
+        <p class="preco-linha">Teste grátis por 14 dias. Depois, R$ 97/mês. Cancele quando quiser.</p>
         <p class="preco-linha">Sem contrato de fidelidade, sem limite de clientes.</p>
         <div class="preco-itens">
           <p class="i"><span>—</span> Toques ilimitados pelo WhatsApp</p>
@@ -663,6 +702,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
       <div>
         <h2 id="cta-h">Comece a usar o Toquei agora.</h2>
         <p>Leva menos de um minuto. Sem cartão de crédito.</p>
+        <p>Teste grátis por 14 dias. Depois, R$ 97/mês. Cancele quando quiser.</p>
       </div>
       <div class="form-card">
         <div class="form-wrap" id="formWrap">
