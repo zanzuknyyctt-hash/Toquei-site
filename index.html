@@ -271,6 +271,9 @@ section{padding:64px 0;}
 .campo.tem-erro input{border-color:var(--erro);}
 .campo.tem-erro .erro{display:block;}
 .form-card .btn{width:100%; height:48px;}
+.consentimento{margin-top:12px; font-size:12px; color:var(--texto-3); line-height:1.5;}
+.consentimento a{color:var(--texto-2); text-decoration:underline;}
+.form-expectativa{margin-top:10px; font-size:.82rem; color:var(--texto-2); line-height:1.5;}
 .form-card .btn[data-loading="1"]{opacity:.7; pointer-events:none;}
 .confirmacao{display:none; text-align:center; padding:20px 6px;}
 .confirmacao.mostrar{display:block;}
@@ -680,6 +683,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
               <p class="erro">Digite um e-mail válido.</p>
             </div>
             <button type="submit" class="btn btn-primary" id="submitBtn">Começar grátis</button>
+            <p class="consentimento">Ao continuar, você concorda com os <a href="/termos.html">Termos de uso</a> e a <a href="/privacidade.html">Política de privacidade</a>, e autoriza contato pelo WhatsApp e e-mail informados.</p>
           </form>
           <div class="confirmacao" id="confirmacao">
             <div class="ok">✓</div>
@@ -693,15 +697,17 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
 
   <section id="privacidade" class="legal" aria-labelledby="privacidade-h">
     <div class="wrap">
+      <!-- TODO: revisão jurídica antes do primeiro cliente pagante -->
       <h2 id="privacidade-h">Política de privacidade</h2>
-      <p>Usamos os dados que você e seus clientes nos dão (nome, contato, faturas e mensagens trocadas) só para o Toquei funcionar: mostrar quem está em aberto e enviar os toques que você configurar. Não vendemos esses dados a terceiros. Você pode pedir a exclusão da sua conta e dos dados associados a qualquer momento pelo contato abaixo.</p>
+      <p>O controlador dos dados é <strong>[SEU NOME]</strong>, <strong>[CIDADE/UF]</strong> — o Toquei ainda não tem CNPJ próprio. Tratamos: os dados de cadastro da empresa que usa o Toquei; os dados dos clientes dela (nome, contato, faturas); e o conteúdo das conversas trocadas pelo WhatsApp. Usamos isso só para mostrar o que está em aberto, enviar os toques configurados e, dentro do Piloto, identificar padrões no texto das mensagens com regras internas de reconhecimento — sem enviar esse conteúdo a nenhum provedor externo de inteligência artificial hoje. Não vendemos dados a terceiros. A política completa, com prazos de retenção e canal de contato para exercer seus direitos, está em <a href="/privacidade.html">privacidade.html</a>.</p>
     </div>
   </section>
 
   <section id="termos" class="legal" aria-labelledby="termos-h">
     <div class="wrap">
+      <!-- TODO: revisão jurídica antes do primeiro cliente pagante -->
       <h2 id="termos-h">Termos de uso</h2>
-      <p>Ao usar o Toquei, você concorda em usá-lo para gerenciar cobranças reais da sua empresa, sem enviar mensagens abusivas ou enganosas aos seus clientes. O plano é mensal, sem fidelidade — você pode cancelar quando quiser, direto pela sua conta.</p>
+      <p>Ao usar o Toquei, você concorda em usá-lo para gerenciar cobranças reais da sua empresa, sem enviar mensagens abusivas ou enganosas aos seus clientes. O plano é mensal, sem fidelidade — você pode cancelar quando quiser, direto pela sua conta. Os termos completos estão em <a href="/termos.html">termos.html</a>.</p>
     </div>
   </section>
 
@@ -730,8 +736,9 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         <a href="#contato">Contato</a>
       </nav>
     </div>
-    <!-- CNPJ: preencher quando existir — não inventado, conforme regra do projeto. -->
-    <p class="copy">© 2026 Toquei · CNPJ: a definir</p>
+    <!-- CNPJ: ainda não existe (empresa não aberta). Não mostrar linha
+         placeholder — quando existir CNPJ real, alguém preenche aqui. -->
+    <p class="copy">© 2026 Toquei</p>
   </div>
 </footer>
 
