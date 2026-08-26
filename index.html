@@ -192,7 +192,7 @@ button,a.btn,input,summary,select{min-height:44px;}
 .pilha{display:flex; flex-direction:column; gap:8px;}
 
 .notif{display:flex; gap:9px; background:rgba(255,255,255,.93); border-radius:13px; padding:9px 10px; animation:entra .38s cubic-bezier(.2,.7,.3,1) both;}
-@keyframes entra{from{opacity:0; transform:translateY(-10px) scale(.97);} to{opacity:1; transform:none;}}
+@keyframes entra{from{transform:translateY(-10px) scale(.97);} to{transform:none;}}
 .notif .ic{flex-shrink:0; width:22px; height:22px; border-radius:7px; background:var(--marca); display:flex; align-items:center; justify-content:center;}
 .notif .tt{display:block; font-size:11px; font-weight:500; color:var(--texto); margin-bottom:1px;}
 .notif .bd{display:block; font-size:11px; color:var(--texto-2); line-height:1.35;}
@@ -441,7 +441,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
               <div class="h" id="hora">--:--</div>
               <div class="d" id="data">&nbsp;</div>
             </div>
-            <div class="pilha" id="pilha"></div>
+            <div class="pilha" id="pilha"><div class="notif"><span class="ic"><svg width="12" height="12" viewBox="0 0 120 120"><rect x="53.5" y="63" width="13" height="42" rx="5" fill="#fff"/><circle cx="60" cy="44" r="8" fill="#fff"/><path d="M43.1 33.5 A19.5 19.5 0 0 1 76.9 33.5" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg></span><span><span class="tt">Toquei</span><span class="bd">Você recebeu um toque da Marcenaria Oliveira</span></span></div></div>
           </div></div>
         </div>
         <div class="legenda">o que seu cliente recebe</div>
@@ -737,22 +737,6 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     </div>
   </section>
 
-  <section id="privacidade" class="legal" aria-labelledby="privacidade-h">
-    <div class="wrap">
-      <!-- TODO: revisão jurídica antes do primeiro cliente pagante -->
-      <h2 id="privacidade-h">Política de privacidade</h2>
-      <p>O controlador dos dados é <strong>[SEU NOME]</strong>, <strong>[CIDADE/UF]</strong> — o Toquei ainda não tem CNPJ próprio. Tratamos: os dados de cadastro da empresa que usa o Toquei; os dados dos clientes dela (nome, contato, faturas); e o conteúdo das conversas trocadas pelo WhatsApp. Usamos isso só para mostrar o que está em aberto, enviar os toques configurados e, dentro do Piloto, identificar padrões no texto das mensagens com regras internas de reconhecimento — sem enviar esse conteúdo a nenhum provedor externo de inteligência artificial hoje. Não vendemos dados a terceiros. A política completa, com prazos de retenção e canal de contato para exercer seus direitos, está em <a href="/privacidade.html">privacidade.html</a>.</p>
-    </div>
-  </section>
-
-  <section id="termos" class="legal" aria-labelledby="termos-h">
-    <div class="wrap">
-      <!-- TODO: revisão jurídica antes do primeiro cliente pagante -->
-      <h2 id="termos-h">Termos de uso</h2>
-      <p>Ao usar o Toquei, você concorda em usá-lo para gerenciar cobranças reais da sua empresa, sem enviar mensagens abusivas ou enganosas aos seus clientes. O plano é mensal, sem fidelidade — você pode cancelar quando quiser, direto pela sua conta. Os termos completos estão em <a href="/termos.html">termos.html</a>.</p>
-    </div>
-  </section>
-
   <section id="contato" class="legal" aria-labelledby="contato-h">
     <div class="wrap">
       <h2 id="contato-h">Contato</h2>
@@ -915,20 +899,28 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     return el;
   }
 
-  var i = 0, timer = null, rodando = false;
+  // MSGS[0] já existe no HTML antes de qualquer script rodar (ver markup do
+  // #pilha), então o ciclo continua a partir de MSGS[1] — a pilha nunca fica
+  // vazia: a cada passo removemos só a notificação mais antiga (quando já
+  // houver 3 na tela) e inserimos a nova no topo.
+  var i = 1, timer = null, rodando = false;
 
   function passo(){
-    if (i >= MSGS.length){ pilha.innerHTML=''; i=0; timer=setTimeout(passo,900); return; }
-    pilha.insertBefore(cartao(MSGS[i++]), pilha.firstChild);
+    if (pilha.children.length >= MSGS.length && pilha.lastElementChild){
+      pilha.removeChild(pilha.lastElementChild);
+    }
+    pilha.insertBefore(cartao(MSGS[i]), pilha.firstChild);
+    i = (i + 1) % MSGS.length;
     fone.classList.remove('vibra'); void fone.offsetWidth; fone.classList.add('vibra');
     timer = setTimeout(passo, 2500);
   }
 
-  function iniciar(){ if(rodando) return; rodando=true; timer=setTimeout(passo,600); }
+  function iniciar(){ if(rodando) return; rodando=true; timer=setTimeout(passo,2500); }
   function parar(){ rodando=false; clearTimeout(timer); }
 
   if (reduzido){
-    MSGS.slice().reverse().forEach(function(m){ pilha.appendChild(cartao(m)); });
+    pilha.appendChild(cartao(MSGS[1]));
+    pilha.appendChild(cartao(MSGS[2]));
   } else {
     if ('IntersectionObserver' in window){
       new IntersectionObserver(function(es){
