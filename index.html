@@ -212,6 +212,7 @@ button,a.btn,input,summary,select{min-height:44px;}
   .fone{transform:scale(.82); transform-origin:top center;}
 }
 
+
 /* ============ seções gerais ============ */
 section{padding:48px 0;}
 .sec-head{max-width:36rem; margin:0 0 32px;}
@@ -306,30 +307,22 @@ section{padding:48px 0;}
 .sim-formula{margin-top:16px; font-size:12px; color:var(--texto-2);}
 .sim-fechamento{margin-top:16px; padding-top:16px; border-top:1px solid var(--borda); font-size:.92rem; color:var(--texto-2);}
 
-/* ============ montador de toques (Bloco 6) ============ */
-.montador{border-top:1px solid var(--borda); border-bottom:1px solid var(--borda);}
-.mont-grid{display:grid; grid-template-columns:1fr; gap:36px;}
-@media (min-width:900px){ .mont-grid{grid-template-columns:1fr 1fr; gap:48px; align-items:start;} }
-.mont-regua{display:flex; flex-direction:column; gap:14px;}
-.mont-toque{border:1px solid var(--borda); border-radius:10px; padding:14px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:10px;}
-.mont-toque .num{width:26px; height:26px; border-radius:50%; background:var(--marca-suave); color:var(--marca); font-size:.78rem; font-weight:500; display:flex; align-items:center; justify-content:center; flex:none;}
-.mont-toque select{height:44px; padding:0 10px; border-radius:7px; border:1px solid var(--borda-forte); background:var(--superficie); color:var(--texto); font-size:.87rem;}
-.mont-fechamento{margin-top:18px; font-size:.92rem; color:var(--texto-2);}
-.mont-preview{display:flex; justify-content:center;}
-/* Preview do montador (Bloco 3.3): só a pilha de notificações, sem a
-   moldura completa de aparelho — essa fica reservada ao hero. */
-.pilha-solta{width:100%; max-width:250px; background:#0e2b21; border-radius:16px; padding:14px 10px; display:flex; flex-direction:column; gap:8px; min-height:110px;}
-
 /* ============ ver o produto ============ */
 .produto-shot{border:1px solid var(--borda); border-radius:14px; background:var(--superficie); padding:22px; max-width:640px; margin:0 auto;}
 .produto-shot .ps-head{font-size:.87rem; color:var(--texto-2); margin-bottom:14px;}
-.produto-shot .ps-item{display:flex; align-items:center; gap:12px; padding:12px 0; border-top:1px solid var(--borda);}
+.produto-shot .ps-item{padding:12px 0; border-top:1px solid var(--borda);}
 .produto-shot .ps-item:first-child{border-top:0;}
+.produto-shot .ps-item-top{display:flex; align-items:center; gap:12px;}
 .produto-shot .ps-dot{width:32px; height:32px; border-radius:50%; background:var(--erro-fundo); color:var(--erro); display:flex; align-items:center; justify-content:center; flex:none; font-size:.75rem; font-weight:500;}
+.produto-shot .ps-dot.ps-dot-enviado{background:var(--marca); color:#fff; font-size:0;}
+.produto-shot .ps-dot.ps-dot-enviado::after{content:''; width:10px; height:10px; border-radius:50%; background:#fff; display:block;}
+.produto-shot .ps-dot.ps-dot-pago{background:var(--marca-suave); color:var(--marca);}
 .produto-shot .ps-body{flex:1;}
 .produto-shot .ps-body .h{font-size:.92rem; font-weight:500;}
 .produto-shot .ps-body .d{font-size:.87rem; color:var(--texto-2); margin-top:2px;}
-.produto-shot .ps-acao{font-size:.87rem; font-weight:500; color:var(--marca); white-space:nowrap;}
+.produto-shot .ps-acao-btn{font-size:.87rem; font-weight:500; color:var(--marca); white-space:nowrap; background:none; border:none; padding:8px 4px; cursor:pointer; text-decoration:underline;}
+.produto-shot .ps-acao-btn:hover{color:var(--marca-hover);}
+.produto-shot .ps-acao-status{font-size:.87rem; font-weight:500; color:var(--texto-2); white-space:nowrap;}
 .produto-shot-grande{max-width:720px; padding:28px;}
 .ps-resumo{font-size:1.05rem; font-weight:500; color:var(--texto); margin-bottom:14px;}
 .produto-legenda{text-align:center; margin-top:14px; font-size:.87rem; color:var(--texto-2);}
@@ -338,12 +331,41 @@ section{padding:48px 0;}
    em linhas próprias, com fonte de pelo menos 14px (Bloco 2.2). O valor "em
    risco" continua no topo do bloco (.ps-resumo), sem alteração. */
 @media (max-width:639px){
-  .produto-shot .ps-item{flex-wrap:wrap; align-items:flex-start; padding:14px 0; row-gap:8px;}
+  .produto-shot .ps-item-top{flex-wrap:wrap; align-items:flex-start; row-gap:8px;}
   .produto-shot .ps-dot{width:26px; height:26px; font-size:.68rem;}
   .produto-shot .ps-body{flex-basis:100%;}
   .produto-shot .ps-body .h{font-size:15px;}
   .produto-shot .ps-body .d{font-size:14px; margin-top:4px;}
-  .produto-shot .ps-acao{margin-left:38px; font-size:14px;}
+  .produto-shot .ps-acao-btn{margin-left:38px; font-size:14px;}
+}
+
+/* ============ demonstração interativa do produto (substitui montador) ============ */
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+.demo-dica{max-width:36rem; margin:0 auto 20px; font-size:.92rem; color:var(--texto-2); text-align:center;}
+.demo-area{display:flex; flex-direction:column; align-items:center; gap:28px;}
+@media (min-width:900px){ .demo-area{flex-direction:row; align-items:flex-start; justify-content:center;} }
+.demo-preview{margin-top:12px; padding:14px; border-radius:10px; background:var(--superficie-alt); border:1px solid var(--borda); overflow:hidden;}
+.demo-preview-titulo{font-size:14px; font-weight:500; color:var(--texto-2); margin-bottom:8px;}
+.demo-texto{display:block; width:100%; min-height:64px; resize:vertical; border:1px solid var(--borda-forte); border-radius:8px; padding:10px 12px; font-size:14px; font-family:inherit; line-height:1.5; color:var(--texto); background:var(--superficie);}
+.demo-texto[readonly]{background:transparent; border-color:transparent; padding-left:0; padding-right:0; resize:none; cursor:default;}
+.demo-preview-acoes{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;}
+.demo-preview-acoes .btn{height:40px; padding:0 16px; font-size:14px;}
+.demo-onda-wrap{position:relative; display:inline-flex;}
+.demo-onda{position:absolute; inset:-3px; border-radius:10px; border:1.5px solid var(--marca); opacity:0; pointer-events:none;}
+.demo-onda.ativa{animation:demoOnda .85s ease-out both;}
+.demo-onda-2.ativa{animation-delay:.1s;}
+.demo-onda-3.ativa{animation-delay:.2s;}
+@keyframes demoOnda{0%{opacity:.5; transform:scale(.3);} 70%{opacity:.12;} 100%{opacity:0; transform:scale(4.2);}}
+.demo-pos{margin-top:12px;}
+.demo-pos .btn{height:40px; padding:0 16px; font-size:14px;}
+.demo-fechamento{max-width:36rem; margin:20px auto 0; font-size:1rem; color:var(--texto); text-align:center;}
+.demo-recomecar{display:block; margin:14px auto 0; background:none; border:none; padding:10px 14px; font-size:.87rem; color:var(--texto-2); text-decoration:underline; cursor:pointer;}
+.demo-recomecar:hover{color:var(--texto);}
+.demo-fone{flex:none;}
+.demo-fone .fone{transform:scale(.78); transform-origin:top center; margin:-46px 0;}
+.demo-fone .legenda{margin-top:-38px;}
+@media (prefers-reduced-motion: reduce){
+  .demo-onda{display:none;}
 }
 
 /* ============ como você começa (Bloco 1.3) ============ */
@@ -466,31 +488,62 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     </div>
   </section>
 
-  <section aria-labelledby="produto-h" class="produto-grande">
+  <section aria-labelledby="produto-h" class="produto-grande" id="demoProduto">
     <div class="wrap">
       <div class="sec-head"><h2 id="produto-h">Ver o produto</h2></div>
       <!-- Reprodução fiel da tela /hoje do Toquei (src/app/(app)/hoje/page.tsx no repo do produto),
            feita em HTML/CSS — não é uma captura de tela literal, pois esta sessão não tem acesso
-           ao app rodando com banco de dados. -->
-      <div class="produto-shot produto-shot-grande">
-        <p class="ps-head">Hoje · o que precisa da sua atenção</p>
-        <p class="ps-resumo tabular">R$ 5.430,00 em risco · 2 clientes com fatura vencida</p>
-        <div class="ps-item">
-          <span class="ps-dot">5d</span>
-          <div class="ps-body"><div class="h">Marcenaria Oliveira</div><div class="d">Fatura de R$ 4.280,00 · Vencido há 5 dias</div></div>
-          <span class="ps-acao">Dar um toque</span>
+           ao app rodando com banco de dados. Interativa (Bloco 2): clique em "Dar um toque" mostra
+           o preview da mensagem, "Enviar toque" simula o envio e "E se ele pagar?" simula a baixa. -->
+      <p class="demo-dica">Clique em "Dar um toque" para ver o que acontece.</p>
+      <div class="demo-area">
+        <div class="produto-shot produto-shot-grande">
+          <p class="ps-head">Hoje · o que precisa da sua atenção</p>
+          <p class="ps-resumo tabular" id="demoResumo">R$ 5.430,00 em risco · 2 clientes com fatura vencida</p>
+
+          <div class="ps-item" data-cliente="marcenaria">
+            <div class="ps-item-top">
+              <span class="ps-dot" id="demoDot-marcenaria">6d</span>
+              <div class="ps-body"><div class="h">Marcenaria Oliveira</div><div class="d" id="demoDesc-marcenaria">Fatura de R$ 3.280,00 · Vencido há 6 dias</div></div>
+              <button type="button" class="ps-acao-btn" id="demoBtn-marcenaria" data-cliente="marcenaria">Dar um toque</button>
+            </div>
+            <div class="demo-preview" id="demoPreview-marcenaria" hidden></div>
+          </div>
+
+          <div class="ps-item" data-cliente="padaria">
+            <div class="ps-item-top">
+              <span class="ps-dot" id="demoDot-padaria">2d</span>
+              <div class="ps-body"><div class="h">Padaria Doce Trigo</div><div class="d" id="demoDesc-padaria">Fatura de R$ 2.150,00 · Vencido há 2 dias</div></div>
+              <button type="button" class="ps-acao-btn" id="demoBtn-padaria" data-cliente="padaria">Dar um toque</button>
+            </div>
+            <div class="demo-preview" id="demoPreview-padaria" hidden></div>
+          </div>
         </div>
-        <div class="ps-item">
-          <span class="ps-dot">2d</span>
-          <div class="ps-body"><div class="h">Padaria Doce Trigo</div><div class="d">Fatura de R$ 1.150,00 · Vencido há 2 dias · próximo toque agendado pra amanhã</div></div>
-          <span class="ps-acao">Dar um toque</span>
-        </div>
-        <div class="ps-item">
-          <span class="ps-dot" style="background:var(--marca-suave); color:var(--marca);">✓</span>
-          <div class="ps-body"><div class="h">Mercadinho Boa Vista</div><div class="d">Fatura de R$ 890,00 · pagamento confirmado hoje</div></div>
-          <span class="ps-acao">Ver cliente</span>
+
+        <div class="demo-fone" id="demoFone" hidden aria-hidden="true">
+          <div class="fone" id="demoFoneCorpo">
+            <svg class="ondas" viewBox="0 0 78 78" aria-hidden="true">
+              <path d="M14 64 A34 34 0 0 1 62 16" fill="none" stroke="#146b4a" stroke-width="3" stroke-linecap="round"/>
+              <path d="M26 70 A46 46 0 0 1 70 26" fill="none" stroke="#146b4a" stroke-width="3" stroke-linecap="round"/>
+              <path d="M2 58 A22 22 0 0 1 54 6" fill="none" stroke="#146b4a" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+            </svg>
+            <div class="corpo"><div class="tela">
+              <div class="entalhe"></div>
+              <div class="pilha" id="demoPilha" style="margin-top:52px;"></div>
+            </div></div>
+          </div>
+          <div class="legenda" id="demoFoneLegenda">o que o cliente recebe</div>
         </div>
       </div>
+
+      <div class="demo-pos" id="demoPos" hidden>
+        <button type="button" class="btn btn-ghost" id="demoBtnPagar">E se ele pagar?</button>
+      </div>
+
+      <p class="demo-fechamento" id="demoFechamento" hidden>É isso. Você define uma vez, e o Toquei acompanha o resto.</p>
+      <button type="button" class="demo-recomecar" id="demoRecomecar" hidden>Ver de novo</button>
+      <p class="sr-only" id="demoStatus" role="status" aria-live="polite"></p>
+
       <p class="produto-legenda">A tela "Hoje" do Toquei: só o que precisa da sua atenção, todo dia.</p>
     </div>
   </section>
@@ -577,68 +630,6 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
           <div>
             <p class="comeca-h">Acompanhe</p>
             <p class="comeca-d">O Toquei avisa quem precisa de atenção e registra quem pagou.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="montador" aria-labelledby="mont-h">
-    <div class="wrap">
-      <div class="sec-head"><h2 id="mont-h">Monte a sequência de toques</h2></div>
-      <div class="mont-grid">
-        <div class="mont-regua" id="montRegua">
-          <div class="mont-toque" data-toque="0">
-            <span class="num">1</span>
-            <select class="mont-quando" aria-label="Quando enviar o 1º toque">
-              <option value="-3">3 dias antes</option>
-              <option value="0">No dia</option>
-              <option value="1">1 dia depois</option>
-              <option value="3">3 dias depois</option>
-              <option value="7">7 dias depois</option>
-            </select>
-            <select class="mont-canal" aria-label="Canal do 1º toque">
-              <option value="whatsapp">WhatsApp</option>
-              <option value="email">E-mail</option>
-              <option value="sms">SMS</option>
-            </select>
-          </div>
-          <div class="mont-toque" data-toque="1">
-            <span class="num">2</span>
-            <select class="mont-quando" aria-label="Quando enviar o 2º toque">
-              <option value="-3">3 dias antes</option>
-              <option value="0">No dia</option>
-              <option value="1" selected>1 dia depois</option>
-              <option value="3">3 dias depois</option>
-              <option value="7">7 dias depois</option>
-            </select>
-            <select class="mont-canal" aria-label="Canal do 2º toque">
-              <option value="whatsapp">WhatsApp</option>
-              <option value="email">E-mail</option>
-              <option value="sms">SMS</option>
-            </select>
-          </div>
-          <div class="mont-toque" data-toque="2">
-            <span class="num">3</span>
-            <select class="mont-quando" aria-label="Quando enviar o 3º toque">
-              <option value="-3">3 dias antes</option>
-              <option value="0">No dia</option>
-              <option value="1">1 dia depois</option>
-              <option value="3">3 dias depois</option>
-              <option value="7" selected>7 dias depois</option>
-            </select>
-            <select class="mont-canal" aria-label="Canal do 3º toque">
-              <option value="whatsapp">WhatsApp</option>
-              <option value="email">E-mail</option>
-              <option value="sms" selected>SMS</option>
-            </select>
-          </div>
-          <p class="mont-fechamento">É isso que seus clientes recebem. Você define uma vez e não pensa mais nisso.</p>
-        </div>
-        <div class="mont-preview">
-          <div class="col">
-            <div class="pilha-solta" id="pilha2" aria-hidden="true"></div>
-            <div class="legenda">o que seu cliente recebe</div>
           </div>
         </div>
       </div>
@@ -922,18 +913,35 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   // houver 3 na tela) e inserimos a nova no topo.
   var i = 1, timer = null, rodando = false;
 
-  function passo(){
+  function avancar(){
     if (pilha.children.length >= MSGS.length && pilha.lastElementChild){
       pilha.removeChild(pilha.lastElementChild);
     }
     pilha.insertBefore(cartao(MSGS[i]), pilha.firstChild);
     i = (i + 1) % MSGS.length;
-    fone.classList.remove('vibra'); void fone.offsetWidth; fone.classList.add('vibra');
+    if (!reduzido) { fone.classList.remove('vibra'); void fone.offsetWidth; fone.classList.add('vibra'); }
+  }
+
+  function passo(){
+    avancar();
     timer = setTimeout(passo, 2500);
   }
 
   function iniciar(){ if(rodando) return; rodando=true; timer=setTimeout(passo,2500); }
   function parar(){ rodando=false; clearTimeout(timer); }
+
+  // Bloco 3: "Ver o toque chegar" dispara a próxima notificação na hora, sem
+  // esperar o ciclo de 2500ms — reaproveita avancar(), então nunca esvazia a
+  // pilha e funciona mesmo com prefers-reduced-motion (onde o ciclo automático
+  // nem chega a rodar).
+  var btnVerToque = document.getElementById('heroVerToque');
+  if (btnVerToque) {
+    btnVerToque.addEventListener('click', function(){
+      clearTimeout(timer);
+      avancar();
+      if (!reduzido && rodando) timer = setTimeout(passo, 2500);
+    });
+  }
 
   if (reduzido){
     pilha.appendChild(cartao(MSGS[1]));
@@ -967,6 +975,14 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   if (!campoFat || !campoDias || !resultado) return;
 
   var moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+  var reduzidoSim = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animarResultado(){
+    if (reduzidoSim) return;
+    resultado.classList.remove('sim-anima');
+    void resultado.offsetWidth;
+    resultado.classList.add('sim-anima');
+  }
 
   function paraNumero(texto){
     var limpo = texto.replace(/[^\d]/g, '');
@@ -998,58 +1014,260 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     if (!campoFat.value) campoFat.value = 'R$ 0';
   });
   campoDias.addEventListener('input', agendarCalculo);
+  // Bloco 3: ao soltar o slider (não a cada passo arrastando), o número sobe
+  // com transform+fade — sem contador animado dígito por dígito.
+  campoDias.addEventListener('change', animarResultado);
 
   calcular();
 })();
 </script>
 
 <script>
-/* Montador de toques (Bloco 6). Presets/estrutura de dados no topo,
-   separada da lógica de renderização, como pedido. */
+/* Demonstração interativa "Ver o produto" (Bloco 2, prompt-demo-interativa-site).
+   Substitui o antigo montador de sequência: em vez de pedir 3 decisões antes de
+   qualquer valor, deixa a pessoa clicar uma vez e ver o produto trabalhar.
+   Dados dos dois clientes de exemplo no topo, separados da lógica de renderização. */
 (function(){
-  var QUANDO_LABEL = { '-3':'3 dias antes', '0':'no dia', '1':'1 dia depois', '3':'3 dias depois', '7':'7 dias depois' };
-  var CANAL_LABEL = { whatsapp:'WhatsApp', email:'E-mail', sms:'SMS' };
+  var secao = document.getElementById('demoProduto');
+  if (!secao) return;
 
-  // Textos exatos por regra de envio — únicos, num objeto no topo do
-  // script, não espalhados pela lógica de renderização.
-  var TEXTOS_TOQUE = {
-    '-3': 'Sua fatura vence em 3 dias.',
-    '0':  'Sua fatura vence hoje.',
-    '1':  'Sua fatura venceu ontem.',
-    '3':  'Sua fatura venceu há 3 dias.',
-    '7':  'Sua fatura venceu há 7 dias.'
+  var CLIENTES = {
+    marcenaria: {
+      nome: 'Marcenaria Oliveira',
+      valor: 3280,
+      dias: 6,
+      descInicial: 'Fatura de R$ 3.280,00 · Vencido há 6 dias',
+      msg: 'Oi! Passando pra lembrar que a fatura de R$ 3.280,00 venceu dia 16.\nSe precisar da segunda via ou do Pix, é só responder por aqui.'
+    },
+    padaria: {
+      nome: 'Padaria Doce Trigo',
+      valor: 2150,
+      dias: 2,
+      descInicial: 'Fatura de R$ 2.150,00 · Vencido há 2 dias',
+      msg: 'Oi! Passando pra lembrar que a fatura de R$ 2.150,00 venceu dia 20.\nSe precisar da segunda via ou do Pix, é só responder por aqui.'
+    }
   };
 
-  function mensagem(quando){
-    return TEXTOS_TOQUE[quando] || 'Sua fatura está em aberto.';
-  }
-
-  var regua = document.getElementById('montRegua');
-  var pilha2 = document.getElementById('pilha2');
-  if (!regua || !pilha2) return;
-
+  var moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
   var ICONE = '<svg width="12" height="12" viewBox="0 0 120 120">' +
     '<rect x="53.5" y="63" width="13" height="42" rx="5" fill="#fff"/>' +
     '<circle cx="60" cy="44" r="8" fill="#fff"/>' +
     '<path d="M43.1 33.5 A19.5 19.5 0 0 1 76.9 33.5" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg>';
 
-  function renderizar(){
-    var toques = regua.querySelectorAll('.mont-toque');
-    pilha2.innerHTML = '';
-    toques.forEach(function(t){
-      var quando = t.querySelector('.mont-quando').value;
-      var canal = t.querySelector('.mont-canal').value;
-      var el = document.createElement('div');
-      el.className = 'notif';
-      el.innerHTML = '<span class="ic">' + ICONE + '</span>' +
-        '<span><span class="tt">Toquei · ' + CANAL_LABEL[canal] + '</span>' +
-        '<span class="bd">' + mensagem(quando) + '</span></span>';
-      pilha2.appendChild(el);
+  function iniciarDemo(){
+    var reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var estado = { marcenaria: 'inicial', padaria: 'inicial' };
+    var textoEditado = {};
+    var ultimoEnviado = null;
+
+    var resumoEl = document.getElementById('demoResumo');
+    var posEl = document.getElementById('demoPos');
+    var btnPagar = document.getElementById('demoBtnPagar');
+    var fechamentoEl = document.getElementById('demoFechamento');
+    var recomecarEl = document.getElementById('demoRecomecar');
+    var statusEl = document.getElementById('demoStatus');
+    var foneEl = document.getElementById('demoFone');
+    var foneCorpo = document.getElementById('demoFoneCorpo');
+    var pilhaEl = document.getElementById('demoPilha');
+    var foneLegenda = document.getElementById('demoFoneLegenda');
+
+    function anunciar(msg){ statusEl.textContent = msg; }
+
+    function recalcularResumo(){
+      var soma = 0, contagem = 0;
+      Object.keys(CLIENTES).forEach(function(c){
+        if (estado[c] !== 'pago') { soma += CLIENTES[c].valor; contagem++; }
+      });
+      if (contagem === 0) {
+        resumoEl.textContent = 'Nenhuma fatura em risco. Tudo em dia.';
+      } else {
+        resumoEl.textContent = moeda.format(soma) + ' em risco · ' + contagem +
+          (contagem === 1 ? ' cliente' : ' clientes') + ' com fatura vencida';
+      }
+    }
+
+    function previewHtml(cliente){
+      var c = CLIENTES[cliente];
+      return '' +
+        '<p class="demo-preview-titulo">1º toque · WhatsApp · ' + c.nome + '</p>' +
+        '<textarea class="demo-texto" id="demoTexto-' + cliente + '" readonly aria-label="Texto da mensagem para ' + c.nome + '">' + c.msg + '</textarea>' +
+        '<div class="demo-preview-acoes">' +
+        '  <span class="demo-onda-wrap">' +
+        '    <button type="button" class="btn btn-primary" id="demoEnviar-' + cliente + '">Enviar toque</button>' +
+        '    <span class="demo-onda demo-onda-1" aria-hidden="true"></span>' +
+        '    <span class="demo-onda demo-onda-2" aria-hidden="true"></span>' +
+        '    <span class="demo-onda demo-onda-3" aria-hidden="true"></span>' +
+        '  </span>' +
+        '  <button type="button" class="btn btn-ghost" id="demoEditar-' + cliente + '">Editar texto</button>' +
+        '</div>';
+    }
+
+    function abrirPreview(cliente){
+      Object.keys(CLIENTES).forEach(function(c){
+        if (c !== cliente) fecharPreview(c);
+      });
+      var painel = document.getElementById('demoPreview-' + cliente);
+      painel.innerHTML = previewHtml(cliente);
+      painel.hidden = false;
+      estado[cliente] = 'preview';
+
+      var textarea = document.getElementById('demoTexto-' + cliente);
+      var btnEditar = document.getElementById('demoEditar-' + cliente);
+      var btnEnviar = document.getElementById('demoEnviar-' + cliente);
+
+      btnEditar.addEventListener('click', function(){
+        if (textarea.hasAttribute('readonly')) {
+          textarea.removeAttribute('readonly');
+          textarea.focus();
+          textarea.select();
+          btnEditar.textContent = 'Concluir edição';
+        } else {
+          textoEditado[cliente] = textarea.value;
+          textarea.setAttribute('readonly', '');
+          btnEditar.textContent = 'Editar texto';
+        }
+      });
+
+      btnEnviar.addEventListener('click', function(){ enviarToque(cliente); });
+
+      anunciar('Mensagem para ' + CLIENTES[cliente].nome + ' pronta para revisão.');
+    }
+
+    function fecharPreview(cliente){
+      var painel = document.getElementById('demoPreview-' + cliente);
+      if (painel) { painel.hidden = true; painel.innerHTML = ''; }
+      if (estado[cliente] === 'preview') estado[cliente] = 'inicial';
+    }
+
+    function mostrarFone(cliente, texto){
+      var c = CLIENTES[cliente];
+      foneLegenda.textContent = 'o que ' + c.nome + ' recebe';
+      pilhaEl.innerHTML = '<div class="notif"><span class="ic">' + ICONE + '</span>' +
+        '<span><span class="tt">Toquei</span><span class="bd">' + texto.replace(/\n/g, ' ') + '</span></span></div>';
+
+      if (foneEl.hidden) {
+        foneEl.hidden = false;
+        if (!reduzido) {
+          foneEl.style.transform = 'translateX(24px)';
+          foneEl.style.opacity = '0';
+          requestAnimationFrame(function(){
+            foneEl.style.transition = 'transform .5s cubic-bezier(.2,.7,.3,1), opacity .5s ease';
+            foneEl.style.transform = 'none';
+            foneEl.style.opacity = '1';
+          });
+        }
+      }
+      if (!reduzido) {
+        foneCorpo.classList.remove('vibra');
+        void foneCorpo.offsetWidth;
+        foneCorpo.classList.add('vibra');
+      }
+    }
+
+    function enviarToque(cliente){
+      var c = CLIENTES[cliente];
+      var texto = textoEditado[cliente] !== undefined ? textoEditado[cliente] : c.msg;
+
+      if (!reduzido) {
+        var ondas = document.querySelectorAll('#demoPreview-' + cliente + ' .demo-onda');
+        ondas.forEach(function(o){ o.classList.remove('ativa'); void o.offsetWidth; o.classList.add('ativa'); });
+      }
+
+      mostrarFone(cliente, texto);
+
+      estado[cliente] = 'enviado';
+      ultimoEnviado = cliente;
+      fecharPreview(cliente);
+      var painel = document.getElementById('demoPreview-' + cliente);
+      painel.hidden = true;
+
+      var dot = document.getElementById('demoDot-' + cliente);
+      dot.textContent = '●';
+      dot.classList.add('ps-dot-enviado');
+      document.getElementById('demoDesc-' + cliente).textContent = '1º toque enviado · agora';
+
+      var btn = document.getElementById('demoBtn-' + cliente);
+      btn.outerHTML = '<span class="ps-acao-status">Toque enviado</span>';
+
+      posEl.hidden = false;
+      recomecarEl.hidden = false;
+      anunciar('Toque enviado para ' + c.nome + '.');
+    }
+
+    document.getElementById('demoBtn-marcenaria').addEventListener('click', function(){ abrirPreview('marcenaria'); });
+    document.getElementById('demoBtn-padaria').addEventListener('click', function(){ abrirPreview('padaria'); });
+
+    btnPagar.addEventListener('click', function(){
+      if (!ultimoEnviado || estado[ultimoEnviado] !== 'enviado') return;
+      var cliente = ultimoEnviado;
+      var c = CLIENTES[cliente];
+      estado[cliente] = 'pago';
+
+      var dot = document.getElementById('demoDot-' + cliente);
+      dot.className = 'ps-dot ps-dot-pago';
+      dot.textContent = '✓';
+      document.getElementById('demoDesc-' + cliente).textContent = 'Recebido · ' + moeda.format(c.valor);
+
+      recalcularResumo();
+      pilhaEl.innerHTML = '<div class="notif"><span class="ic">' + ICONE + '</span>' +
+        '<span><span class="tt">Toquei</span><span class="bd">Pagamento confirmado. Obrigado!</span></span></div>';
+      if (!reduzido) { foneCorpo.classList.remove('vibra'); void foneCorpo.offsetWidth; foneCorpo.classList.add('vibra'); }
+
+      posEl.hidden = true;
+      fechamentoEl.hidden = false;
+      anunciar('Pagamento confirmado: ' + c.nome + '. ' + resumoEl.textContent);
+    });
+
+    recomecarEl.addEventListener('click', function(){
+      estado = { marcenaria: 'inicial', padaria: 'inicial' };
+      textoEditado = {};
+      ultimoEnviado = null;
+
+      Object.keys(CLIENTES).forEach(function(cliente){
+        var c = CLIENTES[cliente];
+        var dot = document.getElementById('demoDot-' + cliente);
+        dot.className = 'ps-dot';
+        dot.textContent = c.dias + 'd';
+        document.getElementById('demoDesc-' + cliente).textContent = c.descInicial;
+
+        var acaoAtual = document.getElementById('demoBtn-' + cliente) || secao.querySelector('[data-cliente="' + cliente + '"] .ps-acao-status');
+        if (acaoAtual && acaoAtual.tagName === 'SPAN') {
+          var novoBtn = document.createElement('button');
+          novoBtn.type = 'button';
+          novoBtn.className = 'ps-acao-btn';
+          novoBtn.id = 'demoBtn-' + cliente;
+          novoBtn.setAttribute('data-cliente', cliente);
+          novoBtn.textContent = 'Dar um toque';
+          acaoAtual.replaceWith(novoBtn);
+          novoBtn.addEventListener('click', function(){ abrirPreview(cliente); });
+        }
+
+        var painel = document.getElementById('demoPreview-' + cliente);
+        painel.hidden = true;
+        painel.innerHTML = '';
+      });
+
+      recalcularResumo();
+      foneEl.hidden = true;
+      foneEl.style.transition = '';
+      foneEl.style.transform = '';
+      foneEl.style.opacity = '';
+      pilhaEl.innerHTML = '';
+      posEl.hidden = true;
+      fechamentoEl.hidden = true;
+      recomecarEl.hidden = true;
+      anunciar('Demonstração reiniciada.');
     });
   }
 
-  regua.addEventListener('change', renderizar);
-  renderizar();
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(es){
+      if (es[0].isIntersecting) { iniciarDemo(); obs.disconnect(); }
+    }, { rootMargin: '200px' });
+    obs.observe(secao);
+  } else {
+    iniciarDemo();
+  }
 })();
 </script>
 
