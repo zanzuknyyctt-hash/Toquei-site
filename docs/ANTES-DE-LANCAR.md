@@ -221,3 +221,101 @@ com antecedência. Aplica-se a lei brasileira, com foro em **[CIDADE/UF]**.
 ## Resolvido
 
 (mover para cá, com a data, quando concluir)
+
+---
+
+## Ideias para depois
+
+Decisões de produto discutidas e adiadas de propósito. Não são pendências de
+lançamento. Reavaliar apenas quando o gatilho de cada uma for atingido.
+
+**Contexto que vale para todas:** hoje não há cliente pagante. Qualquer coisa
+aqui compete com vender o produto que já existe, e o pior desfecho é consumir
+meses de trabalho enquanto o que está pronto não é vendido para ninguém.
+
+### 1. Contas a pagar
+
+**Status:** adiado.
+**Gatilho para reavaliar:** 30 a 50 clientes pagantes em contas a receber.
+
+Contas a pagar não é contas a receber espelhado — é outro produto. Tem aprovação
+em níveis, agendamento de pagamento, conciliação bancária, previsão de saída e
+rateio por centro de custo. O risco também muda de natureza: em receber, o pior
+caso é não entrar dinheiro; em pagar, o pior caso é sair dinheiro errado. Isso
+exige trilha de auditoria e segregação de funções desde o primeiro dia.
+
+Regra de controle interno que precisa existir antes de qualquer linha de código:
+**quem cadastra fornecedor não pode ser quem aprova o pagamento.** É a primeira
+coisa que um contador pergunta, e sem isso o módulo não entra em empresa de porte.
+
+Observação de mercado: no Brasil, a fonte mais forte de dados para contas a pagar
+não é a rede entre clientes, é o **XML da NF-e** e a linha digitável do boleto —
+a empresa já recebe os dois por e-mail. Se um dia houver módulo de AP, importar
+XML provavelmente cobre mais casos do que a rede nos primeiros anos.
+
+### 2. Efeito de rede entre duas empresas usuárias
+
+**Status:** adiado, mas é a ideia mais valiosa da lista.
+**Gatilho para reavaliar:** observar, nos dados, duas contas pagantes que
+transacionam entre si.
+
+Cobrança é via de mão dupla: todo toque enviado já toca em outra empresa. Isso é
+raro e vale explorar — mas uma funcionalidade que só brilha quando as duas pontas
+usam o produto não vale nada sem densidade, e densidade em B2B leva anos.
+
+**Escopo mínimo quando chegar a hora (uma tela, não um produto):** quando a
+empresa que recebe o toque também for cliente do Toquei, o toque vira uma fatura
+a pagar **já preenchida** na conta dela, com um clique para aceitar. O valor não
+é "gerenciar contas a pagar" — é **não digitar nada**. Digitação é o que todo
+mundo odeia e o que nem planilha nem concorrente resolvem.
+
+Efeito colateral desejado: quem recebe o toque sem ter conta percebe que poderia
+ter aceito com um clique, e a própria mensagem carrega o convite. Laço viral de
+graça.
+
+**Comportamento das notificações (já definido):**
+- Empresa destinatária sem Toquei — mensagem normal pelo WhatsApp, assinada como
+  Toquei. É o que já acontece hoje.
+- Empresa destinatária com Toquei — a mesma mensagem chega pelo WhatsApp, e dentro
+  do app a fatura aparece pronta para aceitar. Nunca troque o canal.
+
+### 3. Módulos, permissões e login (decisão tomada)
+
+Se e quando houver contas a pagar, **não** criar dashboard separado nem produto
+separado. A estrutura é:
+
+- **Um login por pessoa, sempre.** Login compartilhado destrói a trilha de
+  auditoria, e em contas a pagar isso é inaceitável.
+- **Permissão por módulo**, atribuída pelo administrador: acesso a Receber, a
+  Pagar, ou aos dois.
+- Quem tem os dois vê um alternador no topo. Mesma interface, mesma navegação,
+  mesmos componentes — dashboard separado significa dois designs, dois conjuntos
+  de bugs e duas dívidas técnicas.
+
+### 4. Chat próprio (decidido: não fazer)
+
+**Status:** descartado. Só reabrir se houver mudança relevante na política ou no
+preço da API do WhatsApp.
+
+Chat próprio exige que a outra empresa entre no app para ler. Ninguém vai fazer
+isso — e a pessoa que deve dinheiro é justamente a que menos quer abrir mais um
+lugar para ser cobrada. Mensagem que ninguém lê não cobra ninguém. O WhatsApp
+funciona porque já está aberto no celular de todo mundo, o dia inteiro. É a razão
+de o produto funcionar.
+
+**Caminho correto:** manter Conversas como caixa de entrada do WhatsApp, ao lado
+do contexto financeiro. Quando as duas empresas forem clientes, **enriquecer a
+mesma thread** — a mensagem continua chegando no WhatsApp, mas dentro do Toquei
+aquela conversa ganha os botões de aceitar a fatura, contestar valor ou propor
+data. O canal é do WhatsApp; a inteligência é nossa.
+
+**Cuidado econômico a estudar antes de escalar:** a API oficial cobra por conversa
+iniciada pela empresa e exige template aprovado fora da janela de 24 horas. Isso
+afeta a margem do plano de R$ 97 e precisa entrar na conta antes de ter muitos
+clientes. Chat próprio não resolve isso — só troca um custo por engajamento zero.
+
+---
+
+**Regra desta seção:** nada aqui vira tarefa sem que o gatilho correspondente
+tenha sido atingido e registrado com data. Ao reavaliar, escreva embaixo do item
+o que mudou e qual foi a decisão.
