@@ -579,7 +579,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         <p class="recurso"><span class="verbo">Manda</span> o toque pelo WhatsApp, com sua confirmação antes de sair.</p>
         <p class="recurso"><span class="verbo">Gera</span> a chave PIX e o link de pagamento na hora.</p>
         <p class="recurso"><span class="verbo">Registra</span> o acordo quando o cliente pede outra data.</p>
-        <p class="recurso"><span class="verbo">Junta</span> as conversas de cobrança num só lugar.</p>
+        <p class="recurso"><span class="verbo">Junta</span> as conversas com seus clientes num só lugar.</p>
         <p class="recurso"><span class="verbo">Fecha</span> o mês mostrando quem pagou e quem ainda deve.</p>
       </div>
     </div>
@@ -595,13 +595,13 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         <p class="ps-head">Hoje · o que precisa da sua atenção</p>
         <div class="ps-item">
           <span class="ps-dot">5d</span>
-          <div class="ps-body"><div class="h">Marcenaria Oliveira</div><div class="d">Fatura de R$ 4.280,00 · 5 dias em atraso</div></div>
-          <span class="ps-acao">Cobrar</span>
+          <div class="ps-body"><div class="h">Marcenaria Oliveira</div><div class="d">Fatura de R$ 4.280,00 · Vencido há 5 dias</div></div>
+          <span class="ps-acao">Dar um toque</span>
         </div>
         <div class="ps-item">
           <span class="ps-dot">2d</span>
-          <div class="ps-body"><div class="h">Padaria Doce Trigo</div><div class="d">Fatura de R$ 1.150,00 · 2 dias em atraso</div></div>
-          <span class="ps-acao">Cobrar</span>
+          <div class="ps-body"><div class="h">Padaria Doce Trigo</div><div class="d">Fatura de R$ 1.150,00 · Vencido há 2 dias</div></div>
+          <span class="ps-acao">Dar um toque</span>
         </div>
         <div class="ps-item">
           <span class="ps-dot" style="background:var(--marca-suave); color:var(--marca);">Hj</span>
@@ -1017,15 +1017,18 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   var QUANDO_LABEL = { '-3':'3 dias antes', '0':'no dia', '1':'1 dia depois', '3':'3 dias depois', '7':'7 dias depois' };
   var CANAL_LABEL = { whatsapp:'WhatsApp', email:'E-mail', sms:'SMS' };
 
+  // Textos exatos por regra de envio — únicos, num objeto no topo do
+  // script, não espalhados pela lógica de renderização.
+  var TEXTOS_TOQUE = {
+    '-3': 'Sua fatura vence em 3 dias.',
+    '0':  'Sua fatura vence hoje.',
+    '1':  'Sua fatura venceu ontem.',
+    '3':  'Sua fatura venceu há 3 dias.',
+    '7':  'Sua fatura venceu há 7 dias.'
+  };
+
   function mensagem(quando){
-    var n = parseInt(quando, 10);
-    if (n <= 0) {
-      return 'Oi! Passando pra lembrar que sua fatura vence ' + (n === 0 ? 'hoje' : Math.abs(n) + ' dias antes') + '.';
-    }
-    if (n <= 3) {
-      return 'Sua fatura venceu há ' + n + (n === 1 ? ' dia' : ' dias') + '. Consegue regularizar hoje?';
-    }
-    return 'Sua fatura está em aberto há ' + n + ' dias. Vamos combinar um novo prazo?';
+    return TEXTOS_TOQUE[quando] || 'Sua fatura está em aberto.';
   }
 
   var regua = document.getElementById('montRegua');
