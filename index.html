@@ -153,7 +153,7 @@ button,a.btn,input,summary,select{min-height:44px;}
 .btn-ghost:hover{background:var(--superficie-alt);}
 
 /* ============ hero ============ */
-.hero{padding:56px 0 64px;}
+.hero{padding:42px 0 48px;}
 .hero-grid{display:grid; grid-template-columns:1fr; gap:40px; align-items:center;}
 @media (min-width:900px){ .hero-grid{grid-template-columns:1.15fr 1fr; gap:56px;} }
 .hero h1{font-size:clamp(28px,6vw,44px); font-weight:500; letter-spacing:-.6px; line-height:1.15; text-wrap:balance;}
@@ -204,7 +204,7 @@ button,a.btn,input,summary,select{min-height:44px;}
 }
 
 /* ============ seções gerais ============ */
-section{padding:64px 0;}
+section{padding:48px 0;}
 .sec-head{max-width:36rem; margin:0 0 32px;}
 .sec-head h2{font-size:clamp(21px,3.5vw,28px); font-weight:500; letter-spacing:-.01em; line-height:1.25;}
 .sec-head p{margin-top:10px; font-size:.96rem; color:var(--texto-2);}
@@ -307,6 +307,9 @@ section{padding:64px 0;}
 .mont-toque select{height:44px; padding:0 10px; border-radius:7px; border:1px solid var(--borda-forte); background:var(--superficie); color:var(--texto); font-size:.86rem;}
 .mont-fechamento{margin-top:18px; font-size:.92rem; color:var(--texto-2);}
 .mont-preview{display:flex; justify-content:center;}
+/* Preview do montador (Bloco 3.3): só a pilha de notificações, sem a
+   moldura completa de aparelho — essa fica reservada ao hero. */
+.pilha-solta{width:100%; max-width:250px; background:#0e2b21; border-radius:16px; padding:14px 10px; display:flex; flex-direction:column; gap:8px; min-height:110px;}
 
 /* ============ ver o produto ============ */
 .produto-shot{border:1px solid var(--borda); border-radius:14px; background:var(--superficie); padding:22px; max-width:640px; margin:0 auto;}
@@ -318,6 +321,8 @@ section{padding:64px 0;}
 .produto-shot .ps-body .h{font-size:.92rem; font-weight:500;}
 .produto-shot .ps-body .d{font-size:.8rem; color:var(--texto-2); margin-top:2px;}
 .produto-shot .ps-acao{font-size:.82rem; font-weight:500; color:var(--marca); white-space:nowrap;}
+.produto-shot-grande{max-width:720px; padding:28px;}
+.ps-resumo{font-size:1.05rem; font-weight:500; color:var(--texto); margin-bottom:14px;}
 .produto-legenda{text-align:center; margin-top:14px; font-size:.85rem; color:var(--texto-2);}
 
 /* ============ como você começa (Bloco 1.3) ============ */
@@ -339,7 +344,7 @@ section{padding:64px 0;}
 .faq-lista details p{margin-top:10px; font-size:.95rem; color:var(--texto-2); line-height:1.65; max-width:38rem;}
 
 /* ============ seções legais (rodapé) ============ */
-.legal{padding:40px 0; border-top:1px solid var(--borda);}
+.legal{padding:30px 0; border-top:1px solid var(--borda);}
 .legal h2{font-size:1.05rem; font-weight:500;}
 .legal p{margin-top:10px; font-size:.9rem; color:var(--texto-2); max-width:38rem; line-height:1.6;}
 
@@ -396,7 +401,11 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     </a>
     <div style="display:flex; align-items:center; gap:8px;">
       <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#toques-h">Como funciona</a>
         <a href="#preco-h">Preço</a>
+        <a href="#faq">Perguntas</a>
+        <!-- TODO: apontar para a URL real do app -->
+        <a href="#">Entrar</a>
       </nav>
       <a class="btn btn-primary" href="#comecar">Começar grátis</a>
     </div>
@@ -433,6 +442,35 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         </div>
         <div class="legenda">o que seu cliente recebe</div>
       </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="produto-h" class="produto-grande">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="produto-h">Ver o produto</h2></div>
+      <!-- Reprodução fiel da tela /hoje do Toquei (src/app/(app)/hoje/page.tsx no repo do produto),
+           feita em HTML/CSS — não é uma captura de tela literal, pois esta sessão não tem acesso
+           ao app rodando com banco de dados. -->
+      <div class="produto-shot produto-shot-grande">
+        <p class="ps-head">Hoje · o que precisa da sua atenção</p>
+        <p class="ps-resumo tabular">R$ 5.430,00 em risco · 2 clientes atrasados</p>
+        <div class="ps-item">
+          <span class="ps-dot">5d</span>
+          <div class="ps-body"><div class="h">Marcenaria Oliveira</div><div class="d">Fatura de R$ 4.280,00 · Vencido há 5 dias</div></div>
+          <span class="ps-acao">Dar um toque</span>
+        </div>
+        <div class="ps-item">
+          <span class="ps-dot">2d</span>
+          <div class="ps-body"><div class="h">Padaria Doce Trigo</div><div class="d">Fatura de R$ 1.150,00 · Vencido há 2 dias · próximo toque agendado pra amanhã</div></div>
+          <span class="ps-acao">Dar um toque</span>
+        </div>
+        <div class="ps-item">
+          <span class="ps-dot" style="background:var(--marca-suave); color:var(--marca);">✓</span>
+          <div class="ps-body"><div class="h">Mercadinho Boa Vista</div><div class="d">Fatura de R$ 890,00 · pagamento confirmado hoje</div></div>
+          <span class="ps-acao">Ver cliente</span>
+        </div>
+      </div>
+      <p class="produto-legenda">A tela "Hoje" do Toquei: só o que precisa da sua atenção, todo dia.</p>
     </div>
   </section>
 
@@ -495,6 +533,35 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     </div>
   </section>
 
+  <section aria-labelledby="comeca-h" class="comeca">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="comeca-h">Como você começa</h2></div>
+      <div class="comeca-passos">
+        <div class="comeca-passo">
+          <span class="comeca-num">1</span>
+          <div>
+            <p class="comeca-h">Traga suas faturas <span class="comeca-tag">em breve</span></p>
+            <p class="comeca-d">Importe uma planilha ou conecte seu emissor. Leva minutos, não dias.</p>
+          </div>
+        </div>
+        <div class="comeca-passo">
+          <span class="comeca-num">2</span>
+          <div>
+            <p class="comeca-h">Escolha a sequência de toques</p>
+            <p class="comeca-d">Quando avisar, por qual canal, com qual texto. Uma vez só.</p>
+          </div>
+        </div>
+        <div class="comeca-passo">
+          <span class="comeca-num">3</span>
+          <div>
+            <p class="comeca-h">Acompanhe</p>
+            <p class="comeca-d">O Toquei avisa quem precisa de atenção e registra quem pagou.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="montador" aria-labelledby="mont-h">
     <div class="wrap">
       <div class="sec-head"><h2 id="mont-h">Monte a sequência de toques</h2></div>
@@ -549,21 +616,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         </div>
         <div class="mont-preview">
           <div class="col">
-            <div class="fone" id="fone2" aria-hidden="true">
-              <svg class="ondas" viewBox="0 0 78 78" aria-hidden="true">
-                <path d="M14 64 A34 34 0 0 1 62 16" fill="none" stroke="#146b4a" stroke-width="3" stroke-linecap="round"/>
-                <path d="M26 70 A46 46 0 0 1 70 26" fill="none" stroke="#146b4a" stroke-width="3" stroke-linecap="round"/>
-                <path d="M2 58 A22 22 0 0 1 54 6" fill="none" stroke="#146b4a" stroke-width="3" stroke-linecap="round" opacity=".55"/>
-              </svg>
-              <div class="corpo"><div class="tela">
-                <div class="entalhe"></div>
-                <div class="relogio">
-                  <div class="h" id="hora2">--:--</div>
-                  <div class="d" id="data2">&nbsp;</div>
-                </div>
-                <div class="pilha" id="pilha2"></div>
-              </div></div>
-            </div>
+            <div class="pilha-solta" id="pilha2" aria-hidden="true"></div>
             <div class="legenda">o que seu cliente recebe</div>
           </div>
         </div>
@@ -585,74 +638,13 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     </div>
   </section>
 
-  <section aria-labelledby="produto-h">
-    <div class="wrap">
-      <div class="sec-head"><h2 id="produto-h">Ver o produto</h2></div>
-      <!-- Reprodução fiel da tela /hoje do Toquei (src/app/(app)/hoje/page.tsx no repo do produto),
-           feita em HTML/CSS — não é uma captura de tela literal, pois esta sessão não tem acesso
-           ao app rodando com banco de dados. -->
-      <div class="produto-shot">
-        <p class="ps-head">Hoje · o que precisa da sua atenção</p>
-        <div class="ps-item">
-          <span class="ps-dot">5d</span>
-          <div class="ps-body"><div class="h">Marcenaria Oliveira</div><div class="d">Fatura de R$ 4.280,00 · Vencido há 5 dias</div></div>
-          <span class="ps-acao">Dar um toque</span>
-        </div>
-        <div class="ps-item">
-          <span class="ps-dot">2d</span>
-          <div class="ps-body"><div class="h">Padaria Doce Trigo</div><div class="d">Fatura de R$ 1.150,00 · Vencido há 2 dias</div></div>
-          <span class="ps-acao">Dar um toque</span>
-        </div>
-        <div class="ps-item">
-          <span class="ps-dot" style="background:var(--marca-suave); color:var(--marca);">Hj</span>
-          <div class="ps-body"><div class="h">Mercadinho Boa Vista</div><div class="d">Fatura de R$ 890,00 · vence hoje</div></div>
-          <span class="ps-acao">Ver cliente</span>
-        </div>
-      </div>
-      <p class="produto-legenda">A tela "Hoje" do Toquei: só o que precisa da sua atenção, todo dia.</p>
-    </div>
-  </section>
-
-  <section aria-labelledby="comeca-h" class="comeca">
-    <div class="wrap">
-      <div class="sec-head"><h2 id="comeca-h">Como você começa</h2></div>
-      <div class="comeca-passos">
-        <div class="comeca-passo">
-          <span class="comeca-num">1</span>
-          <div>
-            <p class="comeca-h">Traga suas faturas <span class="comeca-tag">em breve</span></p>
-            <p class="comeca-d">Importe uma planilha ou conecte seu emissor. Leva minutos, não dias.</p>
-          </div>
-        </div>
-        <div class="comeca-passo">
-          <span class="comeca-num">2</span>
-          <div>
-            <p class="comeca-h">Escolha a sequência de toques</p>
-            <p class="comeca-d">Quando avisar, por qual canal, com qual texto. Uma vez só.</p>
-          </div>
-        </div>
-        <div class="comeca-passo">
-          <span class="comeca-num">3</span>
-          <div>
-            <p class="comeca-h">Acompanhe</p>
-            <p class="comeca-d">O Toquei avisa quem precisa de atenção e registra quem pagou.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section aria-labelledby="faq-h" id="faq">
     <div class="wrap">
       <div class="sec-head"><h2 id="faq-h">Perguntas frequentes</h2></div>
       <div class="faq-lista">
         <details open>
-          <summary>"Já uso o banco pra emitir boleto." Então pra que o Toquei?</summary>
-          <p>O Toquei não emite boleto nem processa pagamento — isso continua com o seu banco ou a sua maquininha. Ele mostra o que está em aberto inteiro, não importa onde a cobrança foi gerada, e dá o toque certo na hora certa, coisa que nenhum emissor de boleto faz.</p>
-        </details>
-        <details>
-          <summary>Preciso trocar de banco ou de emissor de boleto?</summary>
-          <p>Não. O Toquei funciona junto com o que você já usa. Ele não substitui seu banco nem seu emissor de boleto — ele mostra o que está em aberto e dá o toque certo, independente de onde a cobrança foi gerada.</p>
+          <summary>"Já uso o banco pra emitir boleto." Preciso trocar de banco ou emissor?</summary>
+          <p>Não. O Toquei não emite boleto nem processa pagamento — isso continua com o seu banco, sua maquininha ou seu emissor de boleto, sem trocar nada. Ele mostra o que está em aberto inteiro, não importa onde a cobrança foi gerada, e dá o toque certo na hora certa, coisa que nenhum emissor de boleto faz.</p>
         </details>
         <details>
           <summary>Funciona com quem já usa Asaas, conta digital ou boleto do banco?</summary>
@@ -661,6 +653,10 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         <details>
           <summary>Meu cliente vai achar que estou cobrando de forma agressiva?</summary>
           <p>Não é esse o objetivo. As mensagens são lembretes diretos, não boletins de devedor. Você aprova os modelos uma vez. Depois, os toques saem sozinhos conforme a regra que você escolheu — e você pode revisar antes de qualquer envio.</p>
+        </details>
+        <details>
+          <summary>Como funciona o WhatsApp? Uso meu número?</summary>
+          <p>Os toques saem pela API oficial do WhatsApp Business, no número da sua empresa. As respostas dos seus clientes chegam na área Conversas do Toquei, junto com o histórico da fatura — você responde de lá. (em implementação)</p>
         </details>
         <details>
           <summary>E se ele responder? Quem responde?</summary>
@@ -703,6 +699,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         <h2 id="cta-h">Comece a usar o Toquei agora.</h2>
         <p>Leva menos de um minuto. Sem cartão de crédito.</p>
         <p>Teste grátis por 14 dias. Depois, R$ 97/mês. Cancele quando quiser.</p>
+        <p>O Toquei está em acesso antecipado. Quem entra agora ajuda a definir o produto e fala direto com quem constrói.</p>
       </div>
       <div class="form-card">
         <div class="form-wrap" id="formWrap">
@@ -945,24 +942,6 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
 })();
 </script>
 
-<script>
-/* Relógio do segundo aparelho (preview do montador de toques, Bloco 6) —
-   mesmo fuso e formato do relógio da dobra 1, só que num elemento próprio
-   porque o montador vive numa seção separada da página. */
-(function(){
-  var hora2 = document.getElementById('hora2'), data2 = document.getElementById('data2');
-  if (!hora2 || !data2) return;
-  var TZ = { timeZone: 'America/Sao_Paulo' };
-  function atualizar(){
-    var agora = new Date();
-    hora2.textContent = agora.toLocaleTimeString('pt-BR', Object.assign({hour:'2-digit',minute:'2-digit',hour12:false}, TZ));
-    data2.textContent = agora.toLocaleDateString('pt-BR', Object.assign({weekday:'long',day:'numeric',month:'long'}, TZ)).replace('-feira','');
-  }
-  atualizar();
-  var t = setInterval(atualizar, 20000);
-  addEventListener('beforeunload', function(){ clearInterval(t); });
-})();
-</script>
 
 <script>
 /* Simulador "quanto está parado no seu caixa" (Bloco 5). */
@@ -1032,10 +1011,8 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   }
 
   var regua = document.getElementById('montRegua');
-  var fone2 = document.getElementById('fone2');
   var pilha2 = document.getElementById('pilha2');
-  if (!regua || !fone2 || !pilha2) return;
-  var reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!regua || !pilha2) return;
 
   var ICONE = '<svg width="12" height="12" viewBox="0 0 120 120">' +
     '<rect x="53.5" y="63" width="13" height="42" rx="5" fill="#fff"/>' +
@@ -1055,9 +1032,6 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         '<span class="bd">' + mensagem(quando) + '</span></span>';
       pilha2.appendChild(el);
     });
-    if (!reduzido) {
-      fone2.classList.remove('vibra'); void fone2.offsetWidth; fone2.classList.add('vibra');
-    }
   }
 
   regua.addEventListener('change', renderizar);
