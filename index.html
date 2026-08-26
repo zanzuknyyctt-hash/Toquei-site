@@ -683,8 +683,8 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
           </form>
           <div class="confirmacao" id="confirmacao">
             <div class="ok">✓</div>
-            <h3>Conta criada.</h3>
-            <p>Enviamos o acesso para o seu e-mail — confirme por lá pra entrar no Toquei.</p>
+            <h3>Cadastro em breve</h3>
+            <p>O Toquei está em acesso antecipado e o cadastro ainda não está aberto. Fale com a gente em <a href="mailto:contato@toquei.app">contato@toquei.app</a> que avisamos assim que abrir.</p>
           </div>
         </div>
       </div>
@@ -817,7 +817,10 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     }
 
     btn.setAttribute('data-loading', '1');
-    btn.textContent = 'Criando conta…';
+    btn.textContent = 'Enviando…';
+    // TODO(antes-de-lancar): conectar o formulário a um destino real e voltar a
+    // mensagem para "Recebemos seu contato — chamamos no WhatsApp em até 1 dia útil".
+    // Ver docs/ANTES-DE-LANCAR.md
     setTimeout(function(){
       wrap.classList.add('enviado');
       confirmacao.classList.add('mostrar');
