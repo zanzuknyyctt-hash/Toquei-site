@@ -272,27 +272,10 @@ section{padding:48px 0;}
 .cta-final h2{font-size:clamp(1.4rem,3vw,1.9rem); font-weight:500; letter-spacing:-.01em; line-height:1.25;}
 .cta-final p{margin-top:12px; color:var(--texto-2); font-size:1rem;}
 .form-card{border:1px solid var(--borda); border-radius:12px; background:var(--superficie); padding:24px;}
-.campo{margin-bottom:16px;}
-.campo label{display:block; font-size:.87rem; font-weight:500; margin-bottom:6px;}
-.campo input{
-  width:100%; height:46px; padding:0 14px; border-radius:8px; border:1px solid var(--borda-forte);
-  font-size:.95rem; background:var(--superficie); color:var(--texto);
-}
-.campo input:focus-visible{border-color:var(--marca);}
-.campo .erro{display:none; margin-top:6px; font-size:.8rem; color:var(--erro);}
-.campo.tem-erro input{border-color:var(--erro);}
-.campo.tem-erro .erro{display:block;}
+.form-cta-texto{font-size:1rem; color:var(--texto-2); line-height:1.6; margin-bottom:20px;}
 .form-card .btn{width:100%; height:48px;}
 .consentimento{margin-top:12px; font-size:12px; color:var(--texto-3); line-height:1.5;}
 .consentimento a{color:var(--texto-2); text-decoration:underline;}
-.form-expectativa{margin-top:10px; font-size:.87rem; color:var(--texto-2); line-height:1.5;}
-.form-card .btn[data-loading="1"]{opacity:.7; pointer-events:none;}
-.confirmacao{display:none; text-align:center; padding:20px 6px;}
-.confirmacao.mostrar{display:block;}
-.confirmacao .ok{width:40px; height:40px; border-radius:50%; background:var(--marca-suave); color:var(--marca); display:flex; align-items:center; justify-content:center; margin:0 auto 14px;}
-.confirmacao h3{font-size:1.05rem; font-weight:500;}
-.confirmacao p{margin-top:8px; font-size:1rem; color:var(--texto-2);}
-.form-wrap.enviado .form-fields{display:none;}
 
 /* ============ simulador (Bloco 5) ============ */
 .simulador{background:var(--superficie-alt); border-top:1px solid var(--borda); border-bottom:1px solid var(--borda);}
@@ -722,33 +705,9 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         <p>Terminado o teste, sua conta continua acessível em modo leitura — nada é apagado.</p>
       </div>
       <div class="form-card">
-        <div class="form-wrap" id="formWrap">
-          <form class="form-fields" id="signupForm" novalidate>
-            <div class="campo" id="campoNome">
-              <label for="fNome">Nome</label>
-              <input id="fNome" name="nome" type="text" autocomplete="name">
-              <p class="erro">Digite seu nome.</p>
-            </div>
-            <div class="campo" id="campoWhats">
-              <label for="fWhats">WhatsApp</label>
-              <input id="fWhats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000">
-              <p class="erro">Digite um WhatsApp válido, com DDD.</p>
-            </div>
-            <div class="campo" id="campoEmail">
-              <label for="fEmail">E-mail</label>
-              <input id="fEmail" name="email" type="email" autocomplete="email">
-              <p class="erro">Digite um e-mail válido.</p>
-            </div>
-            <button type="submit" class="btn btn-primary" id="submitBtn">Quero acesso antecipado</button>
-            <p class="consentimento">Ao continuar, você concorda com os <a href="/termos">Termos de uso</a> e a <a href="/privacidade">Política de privacidade</a>, e autoriza contato pelo WhatsApp e e-mail informados.</p>
-            <p class="form-expectativa">Depois de enviar, entramos em contato pelo WhatsApp para configurar sua conta.</p>
-          </form>
-          <div class="confirmacao" id="confirmacao">
-            <div class="ok">✓</div>
-            <h3>Cadastro em breve</h3>
-            <p>O Toquei está em acesso antecipado e o cadastro ainda não está aberto. Fale com a gente em <a href="mailto:contato@toquei.app">contato@toquei.app</a> que avisamos assim que abrir.</p>
-          </div>
-        </div>
+        <p class="form-cta-texto">Ainda não temos cadastro automático. Escreva pra gente que a conta é liberada na mão, sem burocracia.</p>
+        <a class="btn btn-primary" href="mailto:contato@toquei.app?subject=Quero%20acesso%20antecipado%20ao%20Toquei">Falar com a gente</a>
+        <p class="consentimento">Ao escrever, você concorda com os <a href="/termos">Termos de uso</a> e a <a href="/privacidade">Política de privacidade</a>.</p>
       </div>
     </div>
   </section>
@@ -831,50 +790,6 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     setTimeout(encerrar, 900);
   }
   setTimeout(encerrar, 2500); // failsafe em JS
-})();
-</script>
-
-<script>
-(function(){
-  var form = document.getElementById('signupForm');
-  var wrap = document.getElementById('formWrap');
-  var confirmacao = document.getElementById('confirmacao');
-  var btn = document.getElementById('submitBtn');
-
-  function setErro(campoId, temErro){
-    document.getElementById(campoId).classList.toggle('tem-erro', temErro);
-  }
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var nome = form.nome.value.trim();
-    var whats = form.whatsapp.value.replace(/\D/g,'');
-    var email = form.email.value.trim();
-
-    var nomeOk = nome.length >= 2;
-    var whatsOk = whats.length >= 10;
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-    setErro('campoNome', !nomeOk);
-    setErro('campoWhats', !whatsOk);
-    setErro('campoEmail', !emailOk);
-
-    if (!nomeOk || !whatsOk || !emailOk) {
-      var primeiroErro = form.querySelector('.tem-erro input');
-      if (primeiroErro) primeiroErro.focus();
-      return;
-    }
-
-    btn.setAttribute('data-loading', '1');
-    btn.textContent = 'Enviando…';
-    // TODO(antes-de-lancar): conectar o formulário a um destino real e voltar a
-    // mensagem para "Recebemos seu contato — chamamos no WhatsApp em até 1 dia útil".
-    // Ver docs/ANTES-DE-LANCAR.md
-    setTimeout(function(){
-      wrap.classList.add('enviado');
-      confirmacao.classList.add('mostrar');
-    }, 700);
-  });
 })();
 </script>
 
