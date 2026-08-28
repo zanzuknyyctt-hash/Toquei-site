@@ -10,11 +10,34 @@ Marque `[x]` quando resolver, mas **não apague a linha** — o histórico impor
 
 ## Bloqueadores (não pode cobrar de ninguém sem isso)
 
-- [ ] Formulário do site não envia nada — hoje é página de testes, os dados
+- [x] Formulário do site não envia nada — hoje é página de testes, os dados
       digitados se perdem. Definir destino (Formspree, Web3Forms ou função na
       Vercel) e garantir que alguém leia a caixa todo dia. — Zanzukny
-- [ ] Mensagem de sucesso do formulário não pode prometer conta criada
+      **Resolvido em 2026-08-28 (rodada 4):** esta sessão não tem credencial
+      real de Formspree/Web3Forms, e inventar um endpoint fake era pior do
+      que a página de testes que já existia. Os três campos (nome/WhatsApp/
+      e-mail) foram removidos; o botão único do formulário agora é `Falar com
+      a gente`, abrindo `mailto:contato@toquei.app` direto (destino real, sem
+      dado descartado). Quando existir cadastro automático de verdade, essa
+      seção volta a pedir os três campos e a gravar em backend próprio —
+      **não** reintroduzir Formspree/Web3Forms sem credencial real testada.
+- [x] Mensagem de sucesso do formulário não pode prometer conta criada
       enquanto não houver cadastro automático. — dev
+      **Resolvido em 2026-08-28:** não existe mais mensagem de sucesso
+      simulada — o clique agora abre o cliente de e-mail do visitante, sem
+      fingir que algo foi "cadastrado".
+- [ ] **Novo (rodada 4):** quando existir cadastro automático de verdade, os
+      CTAs do site (`Quero acesso antecipado`, hoje em topo/herói/preço/CTA
+      fixo mobile) voltam a dizer `Começar grátis`, e o botão do formulário
+      final volta a ser um formulário de verdade (não mais `Falar com a
+      gente` por e-mail). — dev
+- [ ] **Novo (rodada 4):** cláusula 4 dos termos (a versão completa guardada
+      abaixo em "Rascunho jurídico completo") foi atualizada para "14 dias a
+      partir do primeiro toque enviado" nesta rodada, mas a página pública
+      `/termos` continua sendo só o aviso curto ("estamos finalizando...") —
+      ela não tem cláusula 4 visível hoje. Quando o rascunho completo voltar
+      ao ar (CNPJ + revisão jurídica), confirmar que a frase publicada bate
+      com a home e a página de preço. — Zanzukny + jurídico
 - [ ] Abrir empresa (MEI ou ME) — sem CNPJ, o controlador dos dados é pessoa
       física, com nome e endereço pessoal expostos na política. — Zanzukny
 - [ ] Preencher razão social e CNPJ no rodapé e remover qualquer placeholder. — dev
@@ -189,12 +212,13 @@ Código de Defesa do Consumidor proíbe expressamente; enviar conteúdo
 enganoso, ilegal ou que viole direitos de terceiros. O descumprimento
 permite suspensão imediata da conta.
 
-**4. Teste grátis, preço e cancelamento** — O teste grátis dura 14 dias, sem
-cobrança e sem cartão de crédito. Ao fim do período, sem contratação, a
-conta passa a somente leitura: os dados continuam acessíveis, mas o envio de
-toques e a criação de faturas ficam bloqueados. Nada é apagado. O plano
-custa R$ 97 por mês, sem fidelidade. O cancelamento pode ser feito a
-qualquer momento na própria conta e vale ao fim do ciclo já pago, sem multa.
+**4. Teste grátis, preço e cancelamento** — O teste grátis dura 14 dias a
+partir do primeiro toque enviado, sem cobrança e sem cartão de crédito. Ao
+fim do período, sem contratação, a conta passa a somente leitura: os dados
+continuam acessíveis, mas o envio de toques e a criação de faturas ficam
+bloqueados. Nada é apagado. O plano custa R$ 97 por mês, sem fidelidade. O
+cancelamento pode ser feito a qualquer momento na própria conta e vale ao
+fim do ciclo já pago, sem multa.
 Não há reembolso proporcional de período já utilizado, salvo exigência
 legal. Mudanças de preço só valem para ciclos futuros e serão avisadas com
 30 dias de antecedência.
