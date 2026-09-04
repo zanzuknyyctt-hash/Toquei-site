@@ -477,6 +477,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
         </div>
         <div class="legenda">o que seu cliente recebe</div>
         <button type="button" class="hero-vertoque" id="heroVerToque">Ver o toque chegar</button>
+        <p class="sr-only" id="heroStatus" role="status" aria-live="polite"></p>
       </div>
     </div>
   </section>
@@ -877,11 +878,13 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   // pilha e funciona mesmo com prefers-reduced-motion (onde o ciclo automático
   // nem chega a rodar).
   var btnVerToque = document.getElementById('heroVerToque');
+  var heroStatus = document.getElementById('heroStatus');
   if (btnVerToque) {
     btnVerToque.addEventListener('click', function(){
       clearTimeout(timer);
       avancar();
       if (!reduzido && rodando) timer = setTimeout(passo, 2500);
+      if (heroStatus) heroStatus.textContent = 'Nova notificação recebida.';
     });
   }
 
