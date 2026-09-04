@@ -768,16 +768,24 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   var modo = html.classList.contains('completo') ? 'completo'
     : html.classList.contains('simples') ? 'simples' : 'nenhum';
 
+  // Elementos de conteúdo real por trás do overlay: não há uma única tag
+  // <main> envolvendo tudo (header/nav, CTA fixo mobile e footer são irmãos
+  // dela), então cada um recebe inert enquanto o overlay estiver ativo, pra
+  // Tab não focar nada escondido atrás dele.
+  var atrasDoOverlay = [].slice.call(document.querySelectorAll('body > header, body > main, body > .cta-fixo, body > footer'));
+
   if (modo === 'nenhum') { if (ov) ov.classList.add('fora'); return; }
   try { sessionStorage.setItem('toquei_pl', '1'); } catch (e) {}
 
   document.body.classList.add('travado');
   document.body.setAttribute('aria-busy', 'true');
+  atrasDoOverlay.forEach(function(el){ el.inert = true; });
 
   function encerrar(){
     ov.classList.add('fora');
     document.body.classList.remove('travado');
     document.body.removeAttribute('aria-busy');
+    atrasDoOverlay.forEach(function(el){ el.inert = false; });
   }
 
   // offsetWidth, não m.width: marca ainda pode estar em meio à própria
