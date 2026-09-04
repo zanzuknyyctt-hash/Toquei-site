@@ -740,7 +740,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   <div class="wrap">
     <div class="foot-row">
       <div class="foot-brand">
-        <svg viewBox="0 0 120 120" role="img" aria-label="Toquei"><rect width="120" height="120" rx="30" fill="#146b4a"/><rect x="53.5" y="63" width="13" height="42" rx="5" fill="#fff"/><circle cx="60" cy="44" r="8" fill="#fff"/><path d="M43.1 33.5 A19.5 19.5 0 0 1 76.9 33.5" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/><path d="M33.5 28 A30.5 30.5 0 0 1 86.5 28" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="30" fill="#146b4a"/><rect x="53.5" y="63" width="13" height="42" rx="5" fill="#fff"/><circle cx="60" cy="44" r="8" fill="#fff"/><path d="M43.1 33.5 A19.5 19.5 0 0 1 76.9 33.5" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/><path d="M33.5 28 A30.5 30.5 0 0 1 86.5 28" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/></svg>
         Toquei
       </div>
       <nav class="foot-links" aria-label="Links do rodapé">
@@ -821,6 +821,7 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
   var pilha = document.getElementById('pilha');
   if (!fone || !pilha) return;
   var reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var relogioTimer = null;
 
   function atualizarRelogio(){
     var agora = new Date();
@@ -870,8 +871,8 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     timer = setTimeout(passo, 2500);
   }
 
-  function iniciar(){ if(rodando) return; rodando=true; timer=setTimeout(passo,2500); }
-  function parar(){ rodando=false; clearTimeout(timer); }
+  function iniciar(){ if(rodando) return; rodando=true; timer=setTimeout(passo,2500); if(!relogioTimer) relogioTimer=setInterval(atualizarRelogio,20000); }
+  function parar(){ rodando=false; clearTimeout(timer); clearInterval(relogioTimer); relogioTimer=null; }
 
   // Bloco 3: "Ver o toque chegar" dispara a próxima notificação na hora, sem
   // esperar o ciclo de 2500ms — reaproveita avancar(), então nunca esvazia a
@@ -888,9 +889,15 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     });
   }
 
+  atualizarRelogio();
+
   if (reduzido){
     pilha.appendChild(cartao(MSGS[1]));
     pilha.appendChild(cartao(MSGS[2]));
+    // Bloco 5.2: sem o ciclo de notificações (que é quem liga/desliga o
+    // relógio via iniciar()/parar()), o relógio decorativo roda sem pausa —
+    // não há observer/visibilitychange configurado neste ramo.
+    relogioTimer = setInterval(atualizarRelogio, 20000);
   } else {
     if ('IntersectionObserver' in window){
       new IntersectionObserver(function(es){
@@ -903,8 +910,6 @@ footer .copy{font-size:.82rem; color:var(--texto-2);}
     });
   }
 
-  atualizarRelogio();
-  var relogioTimer = setInterval(atualizarRelogio, 20000);
   addEventListener('beforeunload', function(){ clearTimeout(timer); clearInterval(relogioTimer); });
 })();
 </script>
